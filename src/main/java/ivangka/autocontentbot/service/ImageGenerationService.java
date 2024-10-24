@@ -64,6 +64,9 @@ public class ImageGenerationService {
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
+        connection.setConnectTimeout(5000); // 5 seconds connection timeout
+        connection.setReadTimeout(10000); // 10 seconds read timeout
+
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(requestBody);
 
@@ -84,7 +87,7 @@ public class ImageGenerationService {
                 if (i == 1) {
                     return null;
                 }
-                Thread.sleep(2000);
+                Thread.sleep(7000);
             }
         }
         String response = IOUtils.toString(responseStream, StandardCharsets.UTF_8);
@@ -119,6 +122,7 @@ public class ImageGenerationService {
                 String folderPath = "src/main/resources/static/images/";
                 String fileName = "image" + userId + ".jpeg";
                 String fileFullPath = folderPath + fileName;
+                new File(folderPath).mkdirs();
                 try (FileOutputStream fos = new FileOutputStream(fileFullPath)) {
                     fos.write(imageBytes);
                 }

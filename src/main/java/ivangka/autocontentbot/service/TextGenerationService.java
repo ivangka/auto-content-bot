@@ -110,6 +110,9 @@ public class TextGenerationService {
         connection.setRequestProperty("x-folder-id", textGenerationAsyncConfig.getFolderId());
         connection.setDoOutput(true);
 
+        connection.setConnectTimeout(5000); // 5 seconds connection timeout
+        connection.setReadTimeout(10000); // 10 seconds read timeout
+
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(requestBody);
 
@@ -198,6 +201,9 @@ public class TextGenerationService {
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("x-folder-id", textGenerationSyncConfig.getFolderId());
         connection.setDoOutput(true);
+
+        connection.setConnectTimeout(5000); // 5 seconds connection timeout
+        connection.setReadTimeout(10000); // 10 seconds read timeout
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(requestBody);
